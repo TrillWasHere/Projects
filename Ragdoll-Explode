@@ -1,0 +1,148 @@
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local Frame_2 = Instance.new("Frame")
+local UICorner_2 = Instance.new("UICorner")
+local Frame_3 = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local Frame_4 = Instance.new("Frame")
+local Username = Instance.new("TextBox")
+local Trigger = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(21, 22, 22)
+Frame.BorderColor3 = Color3.fromRGB(21, 22, 22)
+Frame.Position = UDim2.new(0.410256416, 0, 0.420749307, 0)
+Frame.Size = UDim2.new(0, 210, 0, 110)
+UICorner.Parent = Frame
+Frame_2.Parent = Frame
+Frame_2.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+Frame_2.Position = UDim2.new(0, 0, -0.109090909, 0)
+Frame_2.Size = UDim2.new(0, 210, 0, 18)
+UICorner_2.Parent = Frame_2
+Frame_3.Parent = Frame_2
+Frame_3.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+Frame_3.BorderSizePixel = 0
+Frame_3.Position = UDim2.new(0, 0, 0.666666687, 0)
+Frame_3.Size = UDim2.new(0, 210, 0, 8)
+TextLabel.Parent = Frame_2
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Size = UDim2.new(0, 210, 0, 18)
+TextLabel.Font = Enum.Font.GothamBlack
+TextLabel.Text = "Explode"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+Frame_4.Parent = Frame
+Frame_4.BackgroundColor3 = Color3.fromRGB(14, 14, 14)
+Frame_4.BorderColor3 = Color3.fromRGB(14, 14, 14)
+Frame_4.BorderSizePixel = 0
+Frame_4.Position = UDim2.new(0.0285714287, 0, 0.127272725, 0)
+Frame_4.Size = UDim2.new(0, 198, 0, 90)
+Username.Name = "Username"
+Username.Parent = Frame_4
+Username.BackgroundColor3 = Color3.fromRGB(3, 3, 3)
+Username.BorderColor3 = Color3.fromRGB(21, 22, 22)
+Username.BorderSizePixel = 0
+Username.Position = UDim2.new(0.0707070678, 0, 0.0777777806, 0)
+Username.Size = UDim2.new(0, 170, 0, 20)
+Username.Font = Enum.Font.GothamSemibold
+Username.Text = ""
+Username.TextColor3 = Color3.fromRGB(255, 255, 255)
+Username.TextScaled = true
+Username.TextSize = 15.000
+Username.TextWrapped = true
+Trigger.Name = "Trigger"
+Trigger.Parent = Frame_4
+Trigger.BackgroundColor3 = Color3.fromRGB(3, 3, 3)
+Trigger.Position = UDim2.new(0.121212125, 0, 0.411111116, 0)
+Trigger.Size = UDim2.new(0, 150, 0, 40)
+Trigger.Font = Enum.Font.GothamBold
+Trigger.Text = "Trigger"
+Trigger.TextColor3 = Color3.fromRGB(255, 255, 255)
+Trigger.TextSize = 14.000
+UICorner_3.Parent = Trigger
+-- Scripts:
+local function MBBCTLS_fake_script() -- Trigger.LocalScript 
+	local script = Instance.new('LocalScript', Trigger)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		for j, k in pairs(game.Players:GetChildren()) do
+			if k.Backpack:FindFirstChild("ImpulseGrenade") then
+				game.Players:FindFirstChild(k.Name).Backpack:FindFirstChild("ImpulseGrenade"):FindFirstChild("CreateGrenade"):FireServer(CFrame.new(0,0,0), game.Players:FindFirstChild(Username.Text).Character:FindFirstChild("HumanoidRootPart").CFrame)
+				break;
+			end
+		end
+	end)
+	
+	
+end
+coroutine.wrap(MBBCTLS_fake_script)()
+local function UDCLB_fake_script() -- Frame.LocalScript 
+	local script = Instance.new('LocalScript', Frame)
+
+	local UIS = game:GetService("UserInputService")
+	function draggable(Frame)
+	    dragToggle = nil
+	    local dragSpeed = 3
+	    dragInput = nil
+	    dragStart = nil
+	    local dragPos = nil
+	    function updateInput(input)
+	        local Delta = input.Position - dragStart
+	        local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+	        game:GetService("TweenService"):Create(Frame, TweenInfo.new(0.25), {Position = Position}):Play()
+	    end
+	    Frame.InputBegan:Connect(function(input)
+	        if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
+	            dragToggle = true
+	            dragStart = input.Position
+	            startPos = Frame.Position
+	            input.Changed:Connect(function()
+	                if input.UserInputState == Enum.UserInputState.End then
+	                    dragToggle = false
+	                end
+	            end)
+	        end
+	    end)
+	    Frame.InputChanged:Connect(function(input)
+	        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+	            dragInput = input
+	        end
+	    end)
+	    game:GetService("UserInputService").InputChanged:Connect(function(input)
+	        if input == dragInput and dragToggle then
+	            updateInput(input)
+	        end
+	    end)
+	end
+	
+	draggable(script.Parent)
+end
+coroutine.wrap(UDCLB_fake_script)()
+local function HJRA_fake_script() -- ScreenGui.LocalScript 
+	local script = Instance.new('LocalScript', ScreenGui)
+
+	local plrs = game:GetService("Players")
+	local main = script.Parent
+	local open = false
+	local plr = plrs.LocalPlayer
+	local mouse = plr:GetMouse()
+	function press(key)
+		if (key == "p") then
+			if (open == true) then
+				main.Enabled = false
+				open = false
+			elseif (open == false) then
+				main.Enabled = true
+				open = true
+			end
+		end
+	end
+		
+	mouse.KeyDown:Connect(press)
+end
+coroutine.wrap(HJRA_fake_script)()
